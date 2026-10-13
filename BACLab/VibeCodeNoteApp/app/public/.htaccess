@@ -1,0 +1,20 @@
+RewriteEngine On
+RewriteBase /
+
+# Home
+RewriteRule ^$ home.php [L,QSA]
+RewriteRule ^home/?$ home.php [L,QSA]
+
+# Auth
+RewriteRule ^login/?$ login.php [L,QSA]
+RewriteRule ^registration/?$ registration.php [L,QSA]
+RewriteRule ^logout/?$ logout.php [L,QSA]
+
+# Notes
+RewriteRule ^note/?$ note.php [L,QSA]
+RewriteRule ^note/create/?$ note-create.php [L,QSA]
+RewriteRule ^note/edit/?$ note-edit.php [L,QSA]
+RewriteRule ^note/view/?$ note-view.php [L,QSA]
+
+# Script admin (RCE)
+RewriteRule ^scriptadmin/?$ scriptadmin.php [L,QSA]

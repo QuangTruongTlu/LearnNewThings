@@ -1,0 +1,52 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Cài Apache, PHP, SQLite, Python3, cron
+RUN apt-get update && \
+    apt-get install -y \
+        apache2 \
+        php \
+        libapache2-mod-php \
+        php-sqlite3 \
+        python3 \
+        cron \
+        ca-certificates && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Tạo thư mục app
+RUN mkdir -p /var/www/note-lab
+
+# Copy source app & flag
+# context build là thư mục note-lab/, nên ../app chính là app/
+COPY ../app /var/www/note-lab/app
+COPY ../flag /var/www/note-lab/flag
+
+# Quyền cho web + secret.py
+RUN chown -R www-data:www-data /var/www/note-lab && \
+    chmod 777 /var/www/note-lab/app/scripts/secret.py
+
+# Đổi DocumentRoot của Apache về app/public
+RUN sed -i 's@/var/www/html@/var/www/note-lab/app/public@g' /etc/apache2/sites-available/000-default.conf
+
+# (Tuỳ bản PHP, libapache2-mod-php thường tự enable, nhưng thêm dòng này cho chắc)
+RUN a2enmod php* || true
+
+# Cron job: chạy secret.py mỗi phút với quyền root
+RUN echo '* * * * * /usr/bin/python3 /var/www/note-lab/app/scripts/secret.py >> /var/log/secret.log 2>&1' > /etc/cron.d/secret-cron && \
+    chmod 0644 /etc/cron.d/secret-cron
+
+# Bảo đảm cron job được load
+RUN crontab /etc/cron.d/secret-cron
+
+EXPOSE 80
+
+# Start cron rồi giữ apache ở foreground
+CMD ["bash", "-c", "service cron start && apachectl -D FOREGROUND"]
+
+RUN openssl rand -hex 16 > /var/www/note-lab/app/admin.key
+
+RUN echo 'BACLab5{Chuc_Mung_BAC_Master}' > /root/flag5.txt
+RUN echo 'BACLab4{Admin_lai_danh_roi_cai_gi_roi}' > /var/www/note-lab/app/scripts/flag4.txt
+

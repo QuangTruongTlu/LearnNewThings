@@ -1,0 +1,6 @@
+Công ty tôi vừa cho ra mắt một ứng dụng ghi chú — note app — do một mình Gia Phước Thịnh phát triển. Sếp tôi tin tưởng cậu ta đến mức… sa thải toàn bộ phòng IT còn lại. Ông ấy luôn miệng nói rằng “chỉ cần GPT là đủ rồi, ứng dụng này tuyệt đối an toàn”.
+
+Nhưng chúng tôi thì không nghĩ vậy. Một sản phẩm được viết bởi đúng một người, không qua kiểm thử, không qua đánh giá bảo mật… thật sự khiến chúng tôi lo lắng.
+
+Tôi muốn lấy lại công bằng cho cả đội, và cũng muốn biết liệu sự tự tin của sếp có đúng hay không.
+Bạn có thể hỗ trợ đánh giá ứng dụng này, kiểm thử bảo mật và xem nó có thật sự “an toàn tuyệt đối” như ông ấy tuyên bố không?
